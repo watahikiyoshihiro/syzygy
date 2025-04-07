@@ -1,9 +1,14 @@
 import 'package:flame/game.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+
+import 'ember_quest.dart';
 
 import 'klondike_game.dart';
 
 void main() {
-  final game = KlondikeGame();
-  runApp(GameWidget(game: game));
+  runApp(
+    const GameWidget<EmberQuestGame>.controlled(
+      gameFactory: EmberQuestGame.new,
+    ),
+  );
 }

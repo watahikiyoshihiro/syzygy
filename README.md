@@ -1,6 +1,6 @@
 # syzygy
 
-A new Flutter project.
+A new Flutter Flame tutorial project.
 
 ## Getting Started
 
