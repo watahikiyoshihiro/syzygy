@@ -86,6 +86,15 @@ class EmberPlayer extends SpriteAnimationComponent
 
     // 最後に super.update を呼び出す
     super.update(dt);
+
+    // If ember fell in pit, then game over.
+    if (position.y > game.size.y + size.y) {
+      game.health = 0;
+    }
+
+    if (game.health <= 0) {
+      removeFromParent();
+    }
   }
 
   @override
@@ -150,12 +159,18 @@ class EmberPlayer extends SpriteAnimationComponent
     }
 
     super.onCollision(intersectionPoints, other);
+
+    if (other is Star) {
+      other.removeFromParent();
+      game.starsCollected++;
+    }
   }
 
   // This method runs an opacity effect on ember
 // to make it blink.
   void hit() {
     if (!hitByEnemy) {
+      game.health--;
       hitByEnemy = true;
     }
     add(
@@ -163,7 +178,7 @@ class EmberPlayer extends SpriteAnimationComponent
         EffectController(
           alternate: true,
           duration: 0.1,
-          repeatCount: 6,
+          repeatCount: 5,
         ),
       )..onComplete = () {
           hitByEnemy = false;

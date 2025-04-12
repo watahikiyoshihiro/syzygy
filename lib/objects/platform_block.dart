@@ -18,8 +18,9 @@ class PlatformBlock extends SpriteComponent
   void onLoad() {
     final platformImage = game.images.fromCache('block.png');
     sprite = Sprite(platformImage);
-    position = Vector2((gridPosition.x * size.x) + xOffset,
-        game.size.y - (gridPosition.y * size.y),
+    position = Vector2(
+      (gridPosition.x * size.x) + xOffset,
+      game.size.y - (gridPosition.y * size.y),
     );
     add(RectangleHitbox(collisionType: CollisionType.passive));
   }
@@ -30,6 +31,9 @@ class PlatformBlock extends SpriteComponent
     position += velocity * dt;
     if (position.x < -size.x) removeFromParent();
     super.update(dt);
-  }
 
+    if (position.x < -size.x || game.health <= 0) {
+      removeFromParent();
+    }
+  }
 }
